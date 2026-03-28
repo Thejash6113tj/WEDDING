@@ -1,0 +1,83 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #fdfdfd; /* Light background to match the paper texture */
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+}
+
+.page {
+    height: 100vh;
+    width: 100%;
+    /* CHANGED: 'contain' ensures the full image is visible without cropping */
+    background-size: contain; 
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    opacity: 0;
+    transform: translateY(30px) scale(0.985);
+    transition: opacity 0.8s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+}
+
+.page.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.page:first-child {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* This makes sure the clickable area for the map covers the car on Page 4 */
+.map-trigger {
+    position: absolute;
+    bottom: 5%;
+    width: 80%;
+    height: 40%; 
+    cursor: pointer;
+}
+
+/* Position for the timer on Page 5 */
+.timer-container {
+    position: absolute;
+    top: 38%; 
+    width: 100%;
+    text-align: center;
+}
+
+#timer {
+    font-family: 'Georgia', serif;
+    font-size: 2.2rem;
+    color: #b31b1b;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+/* Responsive adjustment for mobile */
+@media (max-width: 600px) {
+    #timer { font-size: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .page,
+    .page.is-visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}
